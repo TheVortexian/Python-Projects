@@ -1,2 +1,4 @@
+BANK INFORMATION: 
+
 Balance: 0
-Username: ksjfksfla
+Account Name: Chris

@@ -1,33 +1,32 @@
 import math
+import re
 
 #TODO: KEEP WORKING ON IT
-#TODO: ADD A WAY TO READ INFO FROM FILE
+#TODO: ADD A WAY TO READ INFO FROM FILE?
 
 exited = False
 
-verified = False
 balance = 0
+def checkIfHasAccount():
+    pastUser = str(input("Please enter your account name: "))
+    f = open("bankInfo.txt", 'r')
+    for line in f:
+        if pastUser in line:
+            print("Welcome, " + pastUser + "!")
 
-name = str(input("Please create a username: "))
-pswd = str(input("Please create a password: "))
-def login():
-    global verified
-    if verified == False:
+command1 = str(input("Have you used us before? y/n: "))
+if command1 == "y":
+    checkIfHasAccount()
+if command1 == "n":
+    print("Creating empty account. When you log out, enter an account name!")
 
-        loginName = str(input("Login: Enter username - "))
-        loginPswd = str(input("Login: Enter password - "))
-    if (loginName == name and loginPswd == pswd):
-        verified = True
-    else:
-        print("Invalid login credentials!")
-        login()
-login()
 def greet():
     print("Welcome to the Python Bank!")
     print("1) Check Balance")
     print("2) Perform a transaction")
     print("3) Exit")
     print("4) Help")
+    print("5) Clear .txt File")
 
 def transactions():
     transactionType = str(input("Withdraw (w) or Deposit (d)? "))
@@ -49,21 +48,12 @@ def transactions():
 
 def checkBalance():
     print(balance)
-if verified:
-    greet()
 
-def printCommands():
-    print("1) Check Balance")
-    print("2) Perform a transaction")
-    print("3) Exit")
-    print("4) Help")
-    print("5) Logout")
+greet()
 
 while exited == False:
 
-    #transactions()
-
-    userCommand = str(input(">>> "))
+    userCommand = str(input(">>>  "))
 
     if (userCommand == "1"):
         checkBalance()
@@ -72,22 +62,23 @@ while exited == False:
         transactions()
 
     if (userCommand == "3"):
+        name = str(input("What is your account name? "))
         print("Thank you for doing buisness with us, " + name + "!")
 
-        f = open("bankInfo.txt", 'w')
-        f.write("Balance: " + str(balance) + "\n" + "Username: " + name + "     ||     Password: " + pswd)
+        f = open("bankInfo.txt", 'a') #use 'a' for 'appending' instead of writing
+        f.write("BANK INFORMATION: \n\nBalance: " + str(balance) + "\n" + "Account Name: " + name)
         f.close()
 
         exited = True
         exit()
 
     if (userCommand == "4"):
-        printCommands()
+        greet()
 
     if (userCommand == "5"):
-        print("Logging out... ")
-        verified = False
-
+        f = open("bankInfo.txt", 'w')
+        f.write("")
+        f.close()
 
 
 
